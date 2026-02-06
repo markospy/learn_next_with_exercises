@@ -1,16 +1,17 @@
 "use client"
 
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 
 export default function SearchBar() {
+    const router = useRouter()
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTimeout(() => {
             const search = e.target.value
             if (search?.trim()) {
-                redirect(`/clients/${encodeURIComponent(search.trim())}`)
+                router.push(`/clients/${encodeURIComponent(search.trim())}`)
             } else {
-                redirect('/clients')
+                router.push('/clients')
             }
         }, 500)
     }
