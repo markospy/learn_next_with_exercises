@@ -1,14 +1,24 @@
 "use client"
 
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { handleSearch } from "@/app/actions/clients/handleSearch"
+import { redirect } from "next/navigation"
 
 export default function SearchBar() {
-    return (
-        <form action={handleSearch} className="flex justify-center gap-2 mb-4 max-w-72">
-            <Input type="text" placeholder="Buscar cliente" name="search" />
-            <Button type="submit">Buscar</Button>
-        </form>
-    )
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTimeout(() => {
+            const search = e.target.value
+            if (search?.trim()) {
+                redirect(`/clients/${encodeURIComponent(search.trim())}`)
+            } else {
+                redirect('/clients')
+            }
+        }, 500)
+    }
+
+    return <input
+        type="text"
+        placeholder="Buscar cliente"
+        onChange={handleSearch}
+        className="p-2 border-2 border-gray-300 rounded-md"
+    />
 }
